@@ -4,55 +4,30 @@ import AVFoundation
 class ViewController: UIViewController {
     
     var player: AVAudioPlayer!
-    var name = ""
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func keyPressed(_ sender: UIButton) {
-        name = "C"
-        playSound(var: name)
+        
+        playSound(soundName: sender.currentTitle!)
+        
+        //Reduces the sender's (the button that got pressed) opacity to half.
+        sender.alpha = 0.5
+        
+        //Code should execute after 0.2 second delay.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            //Bring's sender's opacity back up to fully opaque.
+            sender.alpha = 1.0
+        }
+        
     }
     
-    @IBAction func keyD(_ sender: UIButton) {
-        name = "D"
-        playSound(var: name)
-
-    }
-    
-    @IBAction func keyE(_ sender: UIButton) {
-        name = "E"
-        playSound(var: name)
-    }
-    
-    @IBAction func keyF(_ sender: UIButton) {
-        name = "F"
-        playSound(var: name)
-    }
-    
-    @IBAction func keyG(_ sender: UIButton) {
-        name = "G"
-        playSound(var: name)
-    }
-    
-    
-    @IBAction func keyA(_ sender: Any) {
-        name = "A"
-        playSound(var: name)
-    }
-    
-    @IBAction func keyB(_ sender: UIButton) {
-        name = "B"
-        playSound(var: name)
-    }
-    
-    
-    
-    
-    func playSound(`var` name: String) {
-        let url = Bundle.main.url(forResource: name, withExtension: "wav")
+    func playSound(soundName: String) {
+        let url = Bundle.main.url(forResource: soundName, withExtension: "wav")
         player = try! AVAudioPlayer(contentsOf: url!)
         player.play()
-                
+        
     }
+    
 }
